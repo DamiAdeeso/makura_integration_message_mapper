@@ -1,0 +1,30 @@
+.mappings-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mappings-content {
+  flex: 1;
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.mappings-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .mappings-filters {
+    flex-direction: column;
+  }
+
+  .mappings-filters > * {
+    width: 100% !important;
+  }
+}
+

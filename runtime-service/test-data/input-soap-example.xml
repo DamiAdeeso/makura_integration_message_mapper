@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <paymentRequest xmlns="http://example.com/payment">
+      <debtorAccount>
+        <accountNumber>1234567890</accountNumber>
+        <name>John Doe</name>
+      </debtorAccount>
+      <amount>
+        <value>1000.50</value>
+        <currency>USD</currency>
+      </amount>
+      <reference>TXN-2024-001</reference>
+      <creditorAccount>
+        <accountNumber>9876543210</accountNumber>
+        <name>Jane Smith</name>
+      </creditorAccount>
+    </paymentRequest>
+  </soap:Body>
+</soap:Envelope>
+
+
+
+

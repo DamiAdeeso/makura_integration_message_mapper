@@ -1,0 +1,34 @@
+routeId: SYSTEM_TO_NIP
+inboundFormat: JSON
+outboundFormat: ISO_XML
+mode: ACTIVE
+endpoint: "https://nip.bank/api/payments"
+auth:
+  type: API_KEY
+  key: "test-api-key-123"
+mappings:
+  request:
+    - from: source.customer.account
+      to: target:DebtorAccount/Identification
+    - from: source.customer.name
+      to: target:DebtorAccount/Name
+    - from: source.amount
+      to: target:InstructedAmount/Amount
+    - from: source.currency
+      to: target:InstructedAmount/Currency
+    - from: source.reference
+      to: target:EndToEndIdentification
+    - from: source.creditor.account
+      to: target:CreditorAccount/Identification
+    - from: source.creditor.name
+      to: target:CreditorAccount/Name
+  response:
+    - from: target:TxSts
+      to: source.status
+    - from: target:ClrSysRef
+      to: source.reference
+    - from: target:StsRsnInf/AddtlInf
+      to: source.message
+
+
+

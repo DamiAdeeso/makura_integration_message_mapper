@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: makura-dashboard-backend
+  
+  # Dual datasource configuration
+  datasource:
+    # Primary datasource: Dashboard database (users, roles, permissions, audit_log)
+    dashboard:
+      url: jdbc:mysql://localhost:3306/makura_dashboard?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${DB_USERNAME:makura_user}
+      password: ${DB_PASSWORD:makura_pass}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        pool-name: DashboardHikariPool
+        maximum-pool-size: 10
+        minimum-idle: 5
+    
+    # Secondary datasource: Runtime database (routes, api_keys)
+    runtime:
+      url: jdbc:mysql://localhost:3306/makura_runtime?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${DB_USERNAME:makura_user}
+      password: ${DB_PASSWORD:makura_pass}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        pool-name: RuntimeHikariPool
+        maximum-pool-size: 10
+        minimum-idle: 5
+  
+  # JPA configuration (applies to primary datasource by default)
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  
+  security:
+    user:
+      name: admin
+      password: admin # Change in production
+
+server:
+  port: 8081
+  servlet:
+    context-path: /dashboard-api
+
+# JWT Configuration
+makura:
+  jwt:
+    secret: ${JWT_SECRET:makura-dashboard-secret-key-change-in-production-min-256-bits}
+    expiration: 86400000 # 24 hours in milliseconds
+  
+  # Runtime Service Integration
+  runtime:
+    base-url: ${RUNTIME_SERVICE_URL:http://localhost:8080}
+    # Path to runtime-service mappings directory (relative to dashboard-backend)
+    mappings:
+      base-path: ${MAPPINGS_BASE_PATH:../runtime-service/mappings}
+  
+  # CORS Configuration
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# OpenAPI / Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+# Logging
+logging:
+  level:
+    com.makura.dashboard: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{correlationId}] %logger{36} - %msg%n"
+
+

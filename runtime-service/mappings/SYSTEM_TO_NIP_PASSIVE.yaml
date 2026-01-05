@@ -1,0 +1,27 @@
+routeId: SYSTEM_TO_NIP_PASSIVE
+inboundFormat: JSON
+outboundFormat: ISO_XML
+mode: PASSIVE
+auth:
+  type: API_KEY
+  key: "test-api-key-456"
+mappings:
+  request:
+    - from: source.customer.account
+      to: target:DebtorAccount/Identification
+    - from: source.customer.name
+      to: target:DebtorAccount/Name
+    - from: source.amount
+      to: target:InstructedAmount/Amount
+    - from: source.currency
+      to: target:InstructedAmount/Currency
+    - from: source.reference
+      to: target:EndToEndIdentification
+  response:
+    - from: target:TxSts
+      to: source.status
+    - from: target:ClrSysRef
+      to: source.reference
+
+
+

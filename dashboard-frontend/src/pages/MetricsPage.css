@@ -1,0 +1,88 @@
+.metrics-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.metrics-content {
+  flex: 1;
+  padding: 24px;
+  background: var(--bg-secondary);
+  overflow-y: auto;
+  transition: background-color 0.3s ease;
+}
+
+.health-row,
+.charts-row {
+  margin-bottom: 16px;
+}
+
+.chart-card {
+  height: 100%;
+  min-height: 350px;
+}
+
+.chart-card .ant-card-body {
+  padding: 20px;
+}
+
+.route-performance-table {
+  overflow-x: auto;
+}
+
+.route-performance-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.route-performance-table th {
+  background: linear-gradient(135deg, rgba(11, 79, 108, 0.1) 0%, rgba(31, 127, 191, 0.1) 100%);
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--brand-medium-blue);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .route-performance-table th {
+  background: linear-gradient(135deg, rgba(11, 79, 108, 0.2) 0%, rgba(31, 127, 191, 0.2) 100%);
+  border-bottom-color: var(--brand-light-blue);
+}
+
+.route-performance-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.route-performance-table tbody tr:hover {
+  background: rgba(31, 127, 191, 0.08);
+  border-left: 3px solid var(--brand-medium-blue);
+}
+
+.dark-mode .route-performance-table tbody tr:hover {
+  background: rgba(91, 192, 235, 0.12);
+  border-left-color: var(--brand-light-blue);
+}
+
+@media (max-width: 768px) {
+  .metrics-content {
+    padding: 16px;
+  }
+
+  .chart-card {
+    min-height: auto;
+  }
+
+  .route-performance-table {
+    font-size: 12px;
+  }
+
+  .route-performance-table th,
+  .route-performance-table td {
+    padding: 8px;
+  }
+}
+

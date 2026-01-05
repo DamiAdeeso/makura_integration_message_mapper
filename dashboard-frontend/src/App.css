@@ -1,0 +1,419 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* CSS Variables for Light Mode (Default) */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #fafafa;
+  --text-primary: #0A2540;
+  --text-secondary: #8c8c8c;
+  --border-color: #d9d9d9;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --hover-bg: rgba(0, 0, 0, 0.02);
+  
+  /* Brand Colors */
+  --brand-deep-blue: #0B4F6C;
+  --brand-medium-blue: #1F7FBF;
+  --brand-warm-orange: #F47C20;
+  --brand-light-blue: #5BC0EB;
+  --brand-dark-navy: #0A2540;
+  --brand-gradient: linear-gradient(90deg, #0B4F6C 0%, #1F7FBF 50%, #F47C20 100%);
+  --brand-gradient-vertical: linear-gradient(135deg, #0B4F6C 0%, #1F7FBF 50%, #F47C20 100%);
+}
+
+/* CSS Variables for Dark Mode */
+.dark-mode {
+  --bg-primary: #141414;
+  --bg-secondary: #1f1f1f;
+  --bg-tertiary: #262626;
+  --text-primary: #ffffff;
+  --text-secondary: #bfbfbf;
+  --border-color: #434343;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --card-bg: #1f1f1f;
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  
+  /* Brand Colors (lighter in dark mode for visibility) */
+  --brand-deep-blue: #0B4F6C;
+  --brand-medium-blue: #1F7FBF;
+  --brand-warm-orange: #F47C20;
+  --brand-light-blue: #5BC0EB;
+  --brand-dark-navy: #0A2540;
+  --brand-gradient: linear-gradient(90deg, #0B4F6C 0%, #1F7FBF 50%, #F47C20 100%);
+  --brand-gradient-vertical: linear-gradient(135deg, #0B4F6C 0%, #1F7FBF 50%, #F47C20 100%);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+a {
+  color: var(--brand-medium-blue);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--brand-warm-orange);
+}
+
+.dark-mode a {
+  color: var(--brand-light-blue);
+}
+
+.dark-mode a:hover {
+  color: var(--brand-warm-orange);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #595959;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+
+/* Ant Design Customizations */
+.ant-table-thead > tr > th {
+  font-weight: 600;
+}
+
+.ant-card {
+  border-radius: 8px;
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+
+.dark-mode .ant-modal-content {
+  background: var(--bg-secondary);
+}
+
+.dark-mode .ant-card {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .ant-card-head {
+  border-color: var(--border-color);
+}
+
+.dark-mode .ant-card-head-title {
+  color: var(--text-primary);
+}
+
+/* Brand colored card borders - enhance existing card styles */
+.ant-card {
+  border-top: 3px solid transparent;
+}
+
+.ant-card:hover {
+  border-top-color: var(--brand-medium-blue);
+  box-shadow: 0 4px 12px rgba(31, 127, 191, 0.15);
+}
+
+.dark-mode .ant-card:hover {
+  border-top-color: var(--brand-light-blue);
+  box-shadow: 0 4px 12px rgba(91, 192, 235, 0.15);
+}
+
+.dark-mode .ant-table {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-table-thead > tr > th {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Brand color accents */
+.ant-menu-item-selected {
+  background: var(--brand-gradient) !important;
+  color: #ffffff !important;
+}
+
+.ant-menu-item-selected .anticon {
+  color: #ffffff !important;
+}
+
+.ant-menu-item:hover:not(.ant-menu-item-selected) {
+  background: rgba(31, 127, 191, 0.1) !important;
+  color: var(--brand-medium-blue) !important;
+}
+
+.dark-mode .ant-menu-item:hover:not(.ant-menu-item-selected) {
+  background: rgba(91, 192, 235, 0.1) !important;
+  color: var(--brand-light-blue) !important;
+}
+
+/* Light mode sidebar menu */
+.light-mode .ant-menu-light .ant-menu-item-selected {
+  background: var(--brand-gradient) !important;
+  color: #ffffff !important;
+}
+
+.light-mode .ant-menu-light .ant-menu-item:hover:not(.ant-menu-item-selected) {
+  background: rgba(31, 127, 191, 0.08) !important;
+  color: var(--brand-medium-blue) !important;
+}
+
+.dark-mode .ant-table-tbody > tr > td {
+  border-color: var(--border-color);
+}
+
+.dark-mode .ant-table-tbody > tr:hover > td {
+  background: var(--hover-bg);
+}
+
+/* Brand colored table rows */
+.ant-table-tbody > tr:hover > td {
+  background: rgba(31, 127, 191, 0.05);
+}
+
+.dark-mode .ant-table-tbody > tr:hover > td {
+  background: rgba(91, 192, 235, 0.08);
+}
+
+.ant-table-tbody > tr.ant-table-row-selected > td {
+  background: rgba(31, 127, 191, 0.1);
+  border-color: var(--brand-medium-blue);
+}
+
+.dark-mode .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: rgba(91, 192, 235, 0.15);
+  border-color: var(--brand-light-blue);
+}
+
+/* Global dark mode styles */
+.dark-mode {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-layout {
+  background: var(--bg-primary);
+}
+
+.dark-mode .ant-layout-content {
+  background: var(--bg-secondary);
+}
+
+.dark-mode .ant-page-header {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .ant-page-header-heading-title {
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-page-header-heading-sub-title {
+  color: var(--text-secondary);
+}
+
+.dark-mode .ant-breadcrumb {
+  color: var(--text-secondary);
+}
+
+.dark-mode .ant-breadcrumb-link {
+  color: var(--text-secondary);
+}
+
+.dark-mode .ant-breadcrumb-link:hover {
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-input,
+.dark-mode .ant-select-selector,
+.dark-mode .ant-picker {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-input::placeholder,
+.dark-mode .ant-select-selection-placeholder {
+  color: var(--text-secondary);
+}
+
+.dark-mode .ant-dropdown {
+  background: var(--bg-secondary);
+}
+
+.dark-mode .ant-dropdown-menu {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .ant-dropdown-menu-item {
+  color: var(--text-primary);
+}
+
+.dark-mode .ant-dropdown-menu-item:hover {
+  background: var(--hover-bg);
+}
+
+.dark-mode .ant-empty-description {
+  color: var(--text-secondary);
+}
+
+/* Brand colored badges and tags */
+.ant-badge-status-dot {
+  background-color: var(--brand-medium-blue);
+}
+
+.ant-tag {
+  border-color: var(--brand-medium-blue);
+  color: var(--brand-medium-blue);
+}
+
+.ant-tag-blue {
+  background: rgba(31, 127, 191, 0.1);
+  border-color: var(--brand-medium-blue);
+  color: var(--brand-medium-blue);
+}
+
+.dark-mode .ant-tag-blue {
+  background: rgba(91, 192, 235, 0.15);
+  border-color: var(--brand-light-blue);
+  color: var(--brand-light-blue);
+}
+
+/* Brand colored statistics */
+.ant-statistic-title {
+  color: var(--text-secondary);
+}
+
+.ant-statistic-content {
+  color: var(--brand-medium-blue);
+  font-weight: 600;
+}
+
+.dark-mode .ant-statistic-content {
+  color: var(--brand-light-blue);
+}
+
+/* Brand colored progress bars */
+.ant-progress-bg {
+  background: var(--brand-gradient) !important;
+}
+
+/* Brand colored switches */
+.ant-switch-checked {
+  background-color: var(--brand-medium-blue);
+}
+
+.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background-color: var(--brand-warm-orange);
+}
+
+/* Brand colored tabs */
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--brand-medium-blue);
+  font-weight: 600;
+}
+
+.ant-tabs-ink-bar {
+  background: var(--brand-gradient);
+}
+
+.dark-mode .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--brand-light-blue);
+}
+
+/* Brand colored alerts */
+.ant-alert-info {
+  border-color: var(--brand-medium-blue);
+  background: rgba(31, 127, 191, 0.1);
+}
+
+.ant-alert-info .ant-alert-icon {
+  color: var(--brand-medium-blue);
+}
+
+.dark-mode .ant-alert-info {
+  background: rgba(91, 192, 235, 0.15);
+  border-color: var(--brand-light-blue);
+}
+
+/* Brand colored dividers */
+.ant-divider-horizontal.ant-divider-with-text::before,
+.ant-divider-horizontal.ant-divider-with-text::after {
+  border-color: var(--brand-medium-blue);
+}
+
+.dark-mode .ant-divider-horizontal.ant-divider-with-text::before,
+.dark-mode .ant-divider-horizontal.ant-divider-with-text::after {
+  border-color: var(--brand-light-blue);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .ant-table {
+    font-size: 12px;
+  }
+
+  .ant-btn {
+    padding: 4px 12px;
+    font-size: 13px;
+  }
+}

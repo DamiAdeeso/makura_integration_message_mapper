@@ -1,0 +1,28 @@
+routeId: XML_TO_ISO
+inboundFormat: XML
+outboundFormat: ISO_XML
+mode: ACTIVE
+endpoint: "https://payment-gateway.example.com/process"
+auth:
+  type: API_KEY
+  key: "xml-api-key-789"
+mappings:
+  request:
+    - from: source.PaymentRequest.Customer.AccountNumber
+      to: target:DebtorAccount/Identification
+    - from: source.PaymentRequest.Customer.CustomerName
+      to: target:DebtorAccount/Name
+    - from: source.PaymentRequest.Amount.Value
+      to: target:InstructedAmount/Amount
+    - from: source.PaymentRequest.Amount.CurrencyCode
+      to: target:InstructedAmount/Currency
+    - from: source.PaymentRequest.TransactionReference
+      to: target:EndToEndIdentification
+  response:
+    - from: target:TxSts
+      to: source.PaymentResponse.Status
+    - from: target:ClrSysRef
+      to: source.PaymentResponse.TransactionId
+
+
+

@@ -1,0 +1,31 @@
+routeId: SOAP_TO_ISO
+inboundFormat: SOAP
+outboundFormat: ISO_XML
+mode: PASSIVE
+auth:
+  type: API_KEY
+  key: "soap-api-key-789"
+mappings:
+  request:
+    - from: debtorAccount.accountNumber
+      to: target:DebtorAccount/Identification
+    - from: debtorAccount.name
+      to: target:DebtorAccount/Name
+    - from: amount.value
+      to: target:InstructedAmount/Amount
+    - from: amount.currency
+      to: target:InstructedAmount/Currency
+    - from: reference
+      to: target:EndToEndIdentification
+    - from: creditorAccount.accountNumber
+      to: target:CreditorAccount/Identification
+    - from: creditorAccount.name
+      to: target:CreditorAccount/Name
+  response:
+    - from: target:TxSts
+      to: paymentResponse.status
+    - from: target:ClrSysRef
+      to: paymentResponse.reference
+    - from: target:StsRsnInf/AddtlInf
+      to: paymentResponse.message
+

@@ -1,0 +1,29 @@
+.roles-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.roles-content {
+  flex: 1;
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.roles-filters {
+  margin-bottom: 24px;
+}
+
+.permissions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  .roles-filters > * {
+    width: 100% !important;
+  }
+}
+

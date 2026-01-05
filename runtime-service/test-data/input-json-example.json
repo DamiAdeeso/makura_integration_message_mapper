@@ -1,0 +1,19 @@
+{
+  "source": {
+    "customer": {
+      "account": "1234567890",
+      "name": "John Doe"
+    },
+    "amount": "1000.50",
+    "currency": "USD",
+    "reference": "TXN-2024-001",
+    "creditor": {
+      "account": "9876543210",
+      "name": "Jane Smith"
+    }
+  }
+}
+
+
+
+

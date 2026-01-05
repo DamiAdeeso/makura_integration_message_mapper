@@ -1,0 +1,8 @@
+# Ignore local configuration overrides
+*.local.yml
+prometheus_data/
+grafana_data/
+
+
+
+

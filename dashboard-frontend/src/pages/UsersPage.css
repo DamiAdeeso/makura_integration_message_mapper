@@ -1,0 +1,30 @@
+.users-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.users-content {
+  flex: 1;
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.users-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .users-filters {
+    flex-direction: column;
+  }
+
+  .users-filters > * {
+    width: 100% !important;
+  }
+}
+

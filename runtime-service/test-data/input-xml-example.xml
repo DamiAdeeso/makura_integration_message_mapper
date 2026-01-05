@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PaymentRequest>
+    <Customer>
+        <AccountNumber>1234567890</AccountNumber>
+        <CustomerName>John Doe</CustomerName>
+    </Customer>
+    <Amount>
+        <Value>1000.50</Value>
+        <CurrencyCode>USD</CurrencyCode>
+    </Amount>
+    <TransactionReference>TXN-2024-001</TransactionReference>
+</PaymentRequest>
+
+
+
+

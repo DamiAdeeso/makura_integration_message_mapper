@@ -1,0 +1,62 @@
+.developers-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.developers-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.developer-card {
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.developer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--brand-medium-blue);
+}
+
+.dark-mode .developer-card:hover {
+  box-shadow: 0 8px 24px rgba(91, 192, 235, 0.2);
+}
+
+.developer-card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(11, 79, 108, 0.1) 0%, rgba(31, 127, 191, 0.1) 100%);
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.developer-card:hover .developer-card-icon {
+  background: linear-gradient(135deg, rgba(11, 79, 108, 0.2) 0%, rgba(31, 127, 191, 0.2) 100%);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .developers-content {
+    padding: 16px;
+  }
+
+  .developer-card {
+    min-height: 240px;
+  }
+}

@@ -1,0 +1,149 @@
+.dashboard-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
+}
+
+.stats-row {
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .ant-card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.stat-card .ant-statistic-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+}
+
+.stat-card .ant-statistic-content {
+  color: #ffffff !important;
+}
+
+.stat-card .ant-statistic-content-prefix {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.stat-card .ant-statistic-content-suffix {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Routes Card - Deep Blue to Medium Blue gradient */
+.stat-card-routes {
+  background: linear-gradient(135deg, #0B4F6C 0%, #1F7FBF 100%) !important;
+}
+
+/* Mappings Card - Medium Blue to Light Blue gradient */
+.stat-card-mappings {
+  background: linear-gradient(135deg, #1F7FBF 0%, #5BC0EB 100%) !important;
+}
+
+/* Users Card - Light Blue to Warm Orange gradient */
+.stat-card-users {
+  background: linear-gradient(135deg, #5BC0EB 0%, #F47C20 100%) !important;
+}
+
+/* Roles Card - Warm Orange to Deep Blue gradient */
+.stat-card-roles {
+  background: linear-gradient(135deg, #F47C20 0%, #0B4F6C 100%) !important;
+}
+
+.dark-mode .stat-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .stat-card:hover {
+  box-shadow: 0 4px 16px rgba(91, 192, 235, 0.2);
+}
+
+.health-item {
+  padding: 16px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  border-left: 3px solid var(--brand-medium-blue);
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.health-item:hover {
+  border-left-color: var(--brand-warm-orange);
+  box-shadow: 0 2px 8px rgba(31, 127, 191, 0.15);
+}
+
+.recent-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.route-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  border-left: 3px solid var(--brand-medium-blue);
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+}
+
+.route-item:hover {
+  background: var(--hover-bg);
+  border-left-color: var(--brand-warm-orange);
+  box-shadow: 0 2px 8px rgba(31, 127, 191, 0.1);
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+
+  .route-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+

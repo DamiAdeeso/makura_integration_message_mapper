@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <DebtorAccount>
+        <Identification>1234567890</Identification>
+        <Name>John Doe</Name>
+    </DebtorAccount>
+    <InstructedAmount>
+        <Amount>1000.50</Amount>
+        <Currency>USD</Currency>
+    </InstructedAmount>
+    <EndToEndIdentification>TXN-2024-001</EndToEndIdentification>
+    <CreditorAccount>
+        <Identification>9876543210</Identification>
+        <Name>Jane Smith</Name>
+    </CreditorAccount>
+</Document>
+
+
+
+

@@ -1,0 +1,95 @@
+routeId: SYSTEM_TO_HYDROGEN
+inboundFormat: XML
+outboundFormat: ISO_XML
+mode: PASSIVE
+namespace:
+  uri: "urn:iso:std:iso:20022:tech:xsd:pacs.028.001.06"
+  prefix: ""  # Empty prefix = default namespace (children inherit without prefix)
+  rootElementPrefix: "ns2"  # Prefix to use on root element in output
+mappings:
+  request:
+    # TSQuerySingleRequest -> PAC.028 (FIToFIPmtStsReq)
+    # Note: Paths start with FIToFIPmtStsReq because Document is already the root element
+    
+    # Group Header - Message ID (SessionID from request)
+    - from: source.TSQuerySingleRequest.SessionID
+      to: target:FIToFIPmtStsReq/GrpHdr/MsgId
+    
+    # Group Header - Creation Date/Time (current timestamp)
+    - from: constant:now
+      to: target:FIToFIPmtStsReq/GrpHdr/CreDtTm
+      transform: "formatDateTime(now(), 'yyyy-MM-ddTHH:mm:ss.SSSZ')"
+    
+    # Instructing Agent - Member ID (Source Institution Code)
+    - from: source.TSQuerySingleRequest.SourceInstitutionCode
+      to: target:FIToFIPmtStsReq/GrpHdr/InstgAgt/FinInstnId/ClrSysMmbId/MmbId
+    
+    # Original Group Information - Original Message ID
+    - from: source.TSQuerySingleRequest.SessionID
+      to: target:FIToFIPmtStsReq/OrgnlGrpInf/OrgnlMsgId
+      transform: "concat(source.TSQuerySingleRequest.SourceInstitutionCode, formatDateTime(now(), 'yyyyMMddHHmmss'), substring(value, -15))"
+    
+    # Original Group Information - Original Message Name ID (constant)
+    - from: constant:pacs.008.001.12
+      to: target:FIToFIPmtStsReq/OrgnlGrpInf/OrgnlMsgNmId
+    
+    # Original Group Information - Original Creation Date/Time (6 days ago)
+    - from: constant:now
+      to: target:FIToFIPmtStsReq/OrgnlGrpInf/OrgnlCreDtTm
+      transform: "subtractDays(now(), 6)"
+    
+    # Transaction Information - Status Request ID
+    - from: source.TSQuerySingleRequest.SessionID
+      to: target:FIToFIPmtStsReq/TxInf/StsReqId
+      transform: "concat(source.TSQuerySingleRequest.SourceInstitutionCode, formatDateTime(now(), 'yyyyMMddHHmmss'), substring(value, -15))"
+    
+    # Transaction Information - Original Transaction ID
+    - from: source.TSQuerySingleRequest.SessionID
+      to: target:FIToFIPmtStsReq/TxInf/OrgnlTxId
+      transform: "concat(source.TSQuerySingleRequest.SourceInstitutionCode, formatDateTime(now(), 'yyyyMMddHHmmss'), substring(value, -15))"
+    
+    # Transaction Information - Instructing Agent BICFI
+    - from: source.TSQuerySingleRequest.SourceInstitutionCode
+      to: target:FIToFIPmtStsReq/TxInf/InstgAgt/FinInstnId/BICFI
+    
+    # Transaction Information - Instructing Agent Member ID
+    - from: source.TSQuerySingleRequest.SourceInstitutionCode
+      to: target:FIToFIPmtStsReq/TxInf/InstgAgt/FinInstnId/ClrSysMmbId/MmbId
+    
+    # Transaction Information - Instructed Agent BICFI (constant)
+    - from: constant:111444
+      to: target:FIToFIPmtStsReq/TxInf/InstdAgt/FinInstnId/BICFI
+    
+    # Transaction Information - Instructed Agent Member ID (constant)
+    - from: constant:111444
+      to: target:FIToFIPmtStsReq/TxInf/InstdAgt/FinInstnId/ClrSysMmbId/MmbId
+    
+    # Transaction Information - Original Transaction Reference - Settlement Date
+    - from: constant:now
+      to: target:FIToFIPmtStsReq/TxInf/OrgnlTxRef/IntrBkSttlmDt
+      transform: "formatDateTime(now(), 'yyyy-MM-dd')"
+
+  response:
+    # PAC.002 (FIToFIPmtStsRpt) -> TSQuerySingleResponse
+    # Note: Paths start with FIToFIPmtStsRpt because Document is already the root element
+    
+    # Response - Session ID (from PAC.002 Message ID)
+    # Extract from MsgId - typically takes the last portion or full value
+    - from: target:FIToFIPmtStsRpt/GrpHdr/MsgId
+      to: source.TSQuerySingleResponse.SessionID
+      transform: "extractSessionId(MsgId)"
+    
+    # Response - Channel Code (constant)
+    - from: constant:9
+      to: source.TSQuerySingleResponse.ChannelCode
+    
+    # Response - Source Institution Code (from Instructed Agent Member ID)
+    # Maps from InstdAgt/MmbId (e.g., 999999) to SourceInstitutionCode
+    - from: target:FIToFIPmtStsRpt/GrpHdr/InstdAgt/FinInstnId/ClrSysMmbId/MmbId
+      to: source.TSQuerySingleResponse.SourceInstitutionCode
+    
+    # Response - Response Code (mapped from Group Status)
+    # Maps ISO status codes (ACSC, RJCT, etc.) to numeric response codes (25, 99, etc.)
+    - from: target:FIToFIPmtStsRpt/OrgnlGrpInfAndSts/GrpSts
+      to: source.TSQuerySingleResponse.ResponseCode
+      transform: "mapStatusToResponseCode(GrpSts)"

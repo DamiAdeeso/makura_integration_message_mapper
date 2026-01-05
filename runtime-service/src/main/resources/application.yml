@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: makura-runtime-service
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/makura_runtime?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:makura_user}
+    password: ${DB_PASSWORD:makura_pass}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: RuntimeHikariPool
+      maximum-pool-size: 10
+      minimum-idle: 5
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8080
+
+# Makura Runtime Configuration
+makura:
+  runtime:
+    mappings:
+      base-path: ${MAPPINGS_BASE_PATH:./mappings}  # YAML mapping files location
+    encryption:
+      keys-path: ${ENCRYPTION_KEYS_PATH:./keys}     # Encryption keys location
+    http-client:
+      connect-timeout: 5000
+      read-timeout: 30000
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Logging
+logging:
+  level:
+    com.makura.runtime: INFO
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{correlationId}] %logger{36} - %msg%n"
